@@ -43,7 +43,7 @@ def load_data(price_pattern="prices_round_*.csv",
         price_files = glob.glob(f"/mnt/user-data/uploads/{price_pattern}")
 
     prices = pd.concat(
-        [pd.read_csv(f, sep=";") for f in price_files],
+        [pd.read_csv(f, sep=";", dtype_backend="numpy_nullable") for f in price_files],
         ignore_index=True
     ).sort_values(["day", "timestamp"]).reset_index(drop=True)
 
@@ -53,7 +53,7 @@ def load_data(price_pattern="prices_round_*.csv",
         trade_files = glob.glob(f"/mnt/user-data/uploads/{trade_pattern}")
 
     trades = pd.concat(
-        [pd.read_csv(f, sep=";") for f in trade_files],
+        [pd.read_csv(f, sep=";", dtype_backend="numpy_nullable") for f in trade_files],
         ignore_index=True
     ).sort_values("timestamp").reset_index(drop=True)
 
